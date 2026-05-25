@@ -5,19 +5,21 @@
 		"username": "伊卡"
 	},
 	"theme": {
-		"colorBrand": "#2fcbe7",
-		"colorPrimary": "#5B423F",
-		"colorSecondary": "#8b7667",
-		"colorBrandSecondary": "#eec25e",
-		"colorBg": "#d4e8f3",
+		"colorBrand": "#35bfab",
+		"colorPrimary": "#334f52",
+		"colorSecondary": "#7b888e",
+		"colorBrandSecondary": "#1fc9e7",
+		"colorBg": "#eeeeee",
 		"colorBorder": "#ffffff",
-		"colorCard": "#ffffff99",
+		"colorCard": "#ffffff66",
 		"colorArticle": "#ffffffcc"
 	},
 	"backgroundColors": [
-		"#f7da3987",
-		"#8fdbe9",
-		"#fffef8"
+		"#9EE7D1",
+		"#32cb3d",
+		"#EDDD62",
+		"#88E6E5",
+		"#a7f3d0"
 	],
 	"artImages": [
 		{
@@ -33,7 +35,7 @@
 			"url": "/images/art/1c7b726fe720679b.jpg"
 		}
 	],
-	"currentArtImageId": "1c7b726fe720679b",
+	"currentArtImageId": "a46372ff45bc5524",
 	"backgroundImages": [
 		{
 			"id": "",
@@ -45,31 +47,24 @@
 		{
 			"id": "github",
 			"type": "github",
-			"value": "https://github.com/yysuni",
+			"value": "icarushuang02",
 			"label": "Github",
-			"order": 3
-		},
-		{
-			"id": "juejin",
-			"type": "juejin",
-			"value": "https://juejin.cn/user/2427311675422382",
-			"label": "稀土掘金",
 			"order": 2
 		},
 		{
 			"id": "email",
 			"type": "email",
-			"value": "yysuni1001@gmail.com",
+			"value": "icarushuang02@gmail.com",
 			"label": "",
 			"order": 1
 		}
 	],
 	"clockShowSeconds": false,
 	"summaryInContent": false,
-	"isCachePem": false,
+	"isCachePem": true,
 	"hideEditButton": false,
 	"enableCategories": true,
-	"currentHatIndex": 3,
+	"currentHatIndex": 24,
 	"hatFlipped": false,
 	"enableChristmas": false,
 	"beian": {
