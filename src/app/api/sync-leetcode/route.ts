@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { toBase64Utf8, getRef, createTree, createCommit, updateRef, createBlob, readTextFileFromRepo, type TreeItem } from '@/lib/server-github'
-import { getServerAuthToken } from '@/lib/server-auth'
 import { htmlToMarkdown, leetcodeSlug } from '@/lib/leetcode-utils'
 import { GITHUB_CONFIG } from '@/consts'
 
@@ -8,8 +7,7 @@ const LEETCODE_API = 'https://leetcode.cn/graphql/'
 const DEFAULT_TAGS = ['LeetCode', '算法']
 const MAX_PAGES = 50
 
-function getLeetcodeHeaders() {
-	const cookie = process.env.LEETCODE_COOKIE || ''
+function getLeetcodeHeaders(cookie: string) {
 	const csrf = cookie.match(/csrftoken=([^;]+)/)?.[1] || ''
 	return {
 		'Content-Type': 'application/json',
@@ -20,10 +18,10 @@ function getLeetcodeHeaders() {
 	}
 }
 
-async function lcGql(query: string, variables: Record<string, any> = {}) {
+async function lcGql(cookie: string, query: string, variables: Record<string, any> = {}) {
 	const res = await fetch(LEETCODE_API, {
 		method: 'POST',
-		headers: getLeetcodeHeaders(),
+		headers: getLeetcodeHeaders(cookie),
 		body: JSON.stringify({ query, variables })
 	})
 	if (!res.ok) {
@@ -36,23 +34,15 @@ async function lcGql(query: string, variables: Record<string, any> = {}) {
 
 export async function POST(request: NextRequest) {
 	try {
-		// 鉴权：检查 SYNC_SECRET（配置了则校验）
-		const syncSecret = process.env.SYNC_SECRET
-		if (syncSecret) {
-			const authHeader = request.headers.get('authorization')
-			if (authHeader !== `Bearer ${syncSecret}`) {
-				return NextResponse.json({ error: '未授权' }, { status: 401 })
-			}
+		// 从请求头读取凭证
+		const token = request.headers.get('x-github-token')
+		if (!token) {
+			return NextResponse.json({ error: '缺少 GitHub Token，请先导入密钥' }, { status: 401 })
 		}
 
-		// 同时检查 GitHub App 私钥是否配置
-		if (!process.env.GITHUB_APP_PRIVATE_KEY) {
-			return NextResponse.json({ error: '未配置 GITHUB_APP_PRIVATE_KEY 环境变量' }, { status: 500 })
-		}
-
-		const cookie = process.env.LEETCODE_COOKIE
+		const cookie = request.headers.get('x-leetcode-cookie')
 		if (!cookie) {
-			return NextResponse.json({ error: '未配置 LEETCODE_COOKIE 环境变量' }, { status: 500 })
+			return NextResponse.json({ error: '缺少 LeetCode Cookie，请先导入' }, { status: 401 })
 		}
 
 		// 1. 获取所有 AC 提交
@@ -61,7 +51,7 @@ export async function POST(request: NextRequest) {
 		let hasNext = true
 		let pageCount = 0
 		while (hasNext && pageCount < MAX_PAGES) {
-			const data = await lcGql(`
+			const data = await lcGql(cookie, `
 				query ($offset: Int!, $limit: Int!) {
 					submissionList(offset: $offset, limit: $limit, status: AC) {
 						lastKey hasNext
@@ -84,7 +74,6 @@ export async function POST(request: NextRequest) {
 		}
 
 		// 3. 读取现有 index.json，找出已存在的 slug
-		const token = await getServerAuthToken(GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, GITHUB_CONFIG.APP_ID)
 		let existingIndex: any[] = []
 		try {
 			const txt = await readTextFileFromRepo(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, 'public/blogs/index.json', GITHUB_CONFIG.BRANCH)
@@ -109,7 +98,7 @@ export async function POST(request: NextRequest) {
 		const synced: { slug: string; title: string; tags: string[]; date: string; summary: string }[] = []
 
 		const fetchDetail = async (item: { title: string; sub: any; slug: string }) => {
-			const detail = await lcGql(`
+			const detail = await lcGql(cookie, `
 				query ($id: ID!) {
 					submissionDetail(submissionId: $id) {
 						code statusDisplay lang
@@ -187,8 +176,16 @@ export async function POST(request: NextRequest) {
 		const commitData = await createCommit(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `feat: 同步 LeetCode 题解 (${synced.length} 道)`, treeData.sha, [refData.sha])
 		await updateRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`, commitData.sha)
 
-		return NextResponse.json({ ok: true, synced: synced.length, titles: synced.map(s => s.title) })
+		const failures = results.filter((r: any) => r.error).map((r: any) => ({ title: r.title, error: r.error }))
+
+		return NextResponse.json({
+			ok: true,
+			synced: synced.length,
+			titles: synced.map(s => s.title),
+			...(failures.length > 0 ? { failures } : {})
+		})
 	} catch (err: any) {
-		return NextResponse.json({ error: err.message }, { status: 500 })
+		const message = String(err.message || '同步失败').replace(/Bearer\s+[^\s]+/g, 'Bearer ***').replace(/x-github-token[^\n]*/gi, 'x-github-token: ***')
+		return NextResponse.json({ error: message }, { status: 500 })
 	}
 }

@@ -23,12 +23,31 @@ export function toBase64Utf8(input: string): string {
 	return btoa(unescape(encodeURIComponent(input)))
 }
 
+export function normalizePem(pem: string): string {
+	return pem
+		.replace(/\\n/g, '\n')
+		.replace(/\r\n/g, '\n')
+		.replace(/\r/g, '\n')
+		.trim()
+}
+
 export function signAppJwt(appId: string, privateKeyPem: string): string {
+	if (!privateKeyPem || typeof privateKeyPem !== 'string') {
+		throw new Error('私钥内容为空，请重新导入 PEM 文件')
+	}
+	const pem = normalizePem(privateKeyPem)
+	if (!pem.includes('BEGIN') || !pem.includes('PRIVATE KEY')) {
+		throw new Error('私钥格式不正确，需要 PEM 格式的 RSA 私钥文件')
+	}
 	const now = Math.floor(Date.now() / 1000)
 	const header = { alg: 'RS256', typ: 'JWT' }
 	const payload = { iat: now - 60, exp: now + 8 * 60, iss: appId }
-	const prv = KEYUTIL.getKey(privateKeyPem) as unknown as string
-	return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), prv)
+	try {
+		const prv = KEYUTIL.getKey(pem) as unknown as string
+		return KJUR.jws.JWS.sign('RS256', JSON.stringify(header), JSON.stringify(payload), prv)
+	} catch (err: any) {
+		throw new Error(`解析私钥失败: ${err.message}。请确保是有效的 RSA 私钥`)
+	}
 }
 
 export async function getInstallationId(jwt: string, owner: string, repo: string): Promise<number> {

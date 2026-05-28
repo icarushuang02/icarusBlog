@@ -5,9 +5,11 @@ interface AuthStore {
 	// State
 	isAuth: boolean
 	privateKey: string | null
+	leetcodeCookie: string | null
 
 	// Actions
 	setPrivateKey: (key: string) => void
+	setLeetcodeCookie: (cookie: string) => void
 	clearAuth: () => void
 	refreshAuthState: () => void
 	getAuthToken: () => Promise<string>
@@ -16,6 +18,11 @@ interface AuthStore {
 export const useAuthStore = create<AuthStore>((set, get) => ({
 	isAuth: false,
 	privateKey: null,
+	leetcodeCookie: null,
+
+	setLeetcodeCookie: (cookie: string) => {
+		set({ leetcodeCookie: cookie })
+	},
 
 	setPrivateKey: async (key: string) => {
 		set({ isAuth: true, privateKey: key })

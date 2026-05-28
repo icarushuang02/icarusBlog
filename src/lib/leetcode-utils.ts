@@ -12,9 +12,9 @@ export function htmlToMarkdown(html: string): string {
 	md = md.replace(/<ul>([\s\S]*?)<\/ul>/g, (_, items) => {
 		return items.replace(/<li>([\s\S]*?)<\/li>/g, '- $1\n').replace(/<[^>]+>/g, '')
 	})
-	md = md.replace(/<ol>([\s\S]*?)<\/ol>/g, (_, items) => {
+	md = md.replace(/<ol>([\s\S]*?)<\/ol>/g, (_match: string, items: string) => {
 		let i = 0
-		return items.replace(/<li>([\s\S]*?)<\/li>/g, (_, c) => {
+		return items.replace(/<li>([\s\S]*?)<\/li>/g, (_m: string, c: string) => {
 			i++
 			return `${i}. ${c.replace(/<[^>]+>/g, '')}\n`
 		})

@@ -29,12 +29,13 @@ export default function BlogPage() {
 	const { items, loading } = useBlogIndex()
 	const { categories: categoriesFromServer } = useCategories()
 	const { isRead } = useReadArticles()
-	const { isAuth, setPrivateKey } = useAuthStore()
+	const { isAuth, setPrivateKey, leetcodeCookie, setLeetcodeCookie, getAuthToken } = useAuthStore()
 	const { siteContent } = useConfigStore()
 	const hideEditButton = siteContent.hideEditButton ?? false
 	const enableCategories = siteContent.enableCategories ?? false
 
 	const keyInputRef = useRef<HTMLInputElement>(null)
+	const cookieInputRef = useRef<HTMLInputElement>(null)
 	const [editMode, setEditMode] = useState(false)
 	const [editableItems, setEditableItems] = useState<BlogIndexItem[]>([])
 	const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set())
@@ -287,22 +288,35 @@ export default function BlogPage() {
 	}, [handleSave, isAuth])
 
 	const handleSyncLeetCode = useCallback(async () => {
+		if (!isAuth) {
+			keyInputRef.current?.click()
+			return
+		}
+		if (!leetcodeCookie) {
+			cookieInputRef.current?.click()
+			return
+		}
 		try {
 			setSyncing(true)
 			toast.info('正在同步 LeetCode 题解...')
-			const syncSecret = process.env.NEXT_PUBLIC_SYNC_SECRET
-			const headers: Record<string, string> = {}
-			if (syncSecret) headers['Authorization'] = `Bearer ${syncSecret}`
-			const res = await fetch('/api/sync-leetcode', { method: 'POST', headers })
+			const ghToken = await getAuthToken()
+			const res = await fetch('/api/sync-leetcode', {
+				method: 'POST',
+				headers: {
+					'x-github-token': ghToken,
+					'x-leetcode-cookie': leetcodeCookie
+				}
+			})
 			const data = await res.json()
 			if (!res.ok) throw new Error(data.error)
-			toast.success('同步完成！刷新页面查看')
+			toast.success(`同步完成！新增 ${data.synced} 道题目`)
 		} catch (err: any) {
+			console.error('LeetCode 同步失败:', err)
 			toast.error(err?.message || '同步失败')
 		} finally {
 			setSyncing(false)
 		}
-	}, [])
+	}, [isAuth, leetcodeCookie, getAuthToken])
 
 	const handlePrivateKeySelection = useCallback(
 		async (file: File) => {
@@ -316,6 +330,20 @@ export default function BlogPage() {
 			}
 		},
 		[setPrivateKey]
+	)
+
+	const handleCookieSelection = useCallback(
+		async (file: File) => {
+			try {
+				const text = await readFileAsText(file)
+				setLeetcodeCookie(text.trim())
+				toast.success('LeetCode Cookie 导入成功，请再次点击同步')
+			} catch (error) {
+				console.error(error)
+				toast.error('读取 Cookie 文件失败')
+			}
+		},
+		[setLeetcodeCookie]
 	)
 
 	useEffect(() => {
@@ -342,6 +370,16 @@ export default function BlogPage() {
 				onChange={async e => {
 					const f = e.target.files?.[0]
 					if (f) await handlePrivateKeySelection(f)
+					if (e.currentTarget) e.currentTarget.value = ''
+				}}
+			/>
+			<input
+				ref={cookieInputRef}
+				type='file'
+				className='hidden'
+				onChange={async e => {
+					const f = e.target.files?.[0]
+					if (f) await handleCookieSelection(f)
 					if (e.currentTarget) e.currentTarget.value = ''
 				}}
 			/>
