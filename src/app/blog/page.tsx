@@ -39,6 +39,7 @@ export default function BlogPage() {
 	const [editableItems, setEditableItems] = useState<BlogIndexItem[]>([])
 	const [selectedSlugs, setSelectedSlugs] = useState<Set<string>>(new Set())
 	const [saving, setSaving] = useState(false)
+	const [syncing, setSyncing] = useState(false)
 	const [displayMode, setDisplayMode] = useState<DisplayMode>('year')
 	const [categoryModalOpen, setCategoryModalOpen] = useState(false)
 	const [categoryList, setCategoryList] = useState<string[]>([])
@@ -285,6 +286,21 @@ export default function BlogPage() {
 		void handleSave()
 	}, [handleSave, isAuth])
 
+	const handleSyncLeetCode = useCallback(async () => {
+		try {
+			setSyncing(true)
+			toast.info('正在同步 LeetCode 题解...')
+			const res = await fetch('/api/sync-leetcode', { method: 'POST' })
+			const data = await res.json()
+			if (!res.ok) throw new Error(data.error)
+			toast.success('同步完成！刷新页面查看')
+		} catch (err: any) {
+			toast.error(err?.message || '同步失败')
+		} finally {
+			setSyncing(false)
+		}
+	}, [])
+
 	const handlePrivateKeySelection = useCallback(
 		async (file: File) => {
 			try {
@@ -516,13 +532,23 @@ export default function BlogPage() {
 					</>
 				) : (
 					!hideEditButton && (
-						<motion.button
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}
-							onClick={toggleEditMode}
-							className='bg-card rounded-xl border px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80'>
-							编辑
-						</motion.button>
+						<>
+							<motion.button
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+								onClick={handleSyncLeetCode}
+								disabled={syncing}
+								className='bg-card rounded-xl border px-4 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80 disabled:opacity-60'>
+								{syncing ? '同步中...' : '同步 LeetCode'}
+							</motion.button>
+							<motion.button
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}
+								onClick={toggleEditMode}
+								className='bg-card rounded-xl border px-6 py-2 text-sm backdrop-blur-sm transition-colors hover:bg-white/80'>
+								编辑
+							</motion.button>
+						</>
 					)
 				)}
 			</motion.div>
