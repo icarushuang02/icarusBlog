@@ -139,11 +139,24 @@ export async function pushBlog(params: PushBlogParams): Promise<void> {
 		{ path: 'public/blogs/index.json', mode: '100644', type: 'blob', sha: indexBlob.sha }
 	)
 
-	// create tree → commit → update ref（必须串行）
-	toast.info('正在提交...')
-	const treeData = await createTree(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, treeItems, latestCommitSha)
-	const commitData = await createCommit(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, commitMessage, treeData.sha, [latestCommitSha])
-	await updateRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`, commitData.sha)
-
-	toast.success('发布成功！')
+	// create tree → commit → update ref（带 422 重试）
+	let currentParentSha = latestCommitSha
+	for (let attempt = 0; attempt < 3; attempt++) {
+		try {
+			toast.info(attempt === 0 ? '正在提交...' : '正在重试提交...')
+			const treeData = await createTree(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, treeItems, currentParentSha)
+			const commitData = await createCommit(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, commitMessage, treeData.sha, [currentParentSha])
+			await updateRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`, commitData.sha)
+			toast.success('发布成功！')
+			return
+		} catch (err: any) {
+			if (err?.message?.includes('422') && attempt < 2) {
+				// SHA 冲突，重新获取最新 ref
+				const newRef = await getRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`)
+				currentParentSha = newRef.sha
+				continue
+			}
+			throw err
+		}
+	}
 }
