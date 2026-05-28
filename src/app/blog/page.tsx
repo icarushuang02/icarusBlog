@@ -290,7 +290,10 @@ export default function BlogPage() {
 		try {
 			setSyncing(true)
 			toast.info('正在同步 LeetCode 题解...')
-			const res = await fetch('/api/sync-leetcode', { method: 'POST' })
+			const syncSecret = process.env.NEXT_PUBLIC_SYNC_SECRET
+			const headers: Record<string, string> = {}
+			if (syncSecret) headers['Authorization'] = `Bearer ${syncSecret}`
+			const res = await fetch('/api/sync-leetcode', { method: 'POST', headers })
 			const data = await res.json()
 			if (!res.ok) throw new Error(data.error)
 			toast.success('同步完成！刷新页面查看')
