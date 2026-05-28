@@ -9,14 +9,16 @@ import { usePublish } from '../hooks/use-publish'
 export function WriteActions() {
 	const { loading, mode, form, loadBlogForEdit, originalSlug, updateForm } = useWriteStore()
 	const { openPreview } = usePreviewStore()
-	const { isAuth, onChoosePrivateKey, onPublish, onDelete } = usePublish()
+	const { isAuth, isDev, onChoosePrivateKey, onPublish, onDelete } = usePublish()
 	const [saving, setSaving] = useState(false)
 	const keyInputRef = useRef<HTMLInputElement>(null)
 	const mdInputRef = useRef<HTMLInputElement>(null)
 	const router = useRouter()
 
 	const handleImportOrPublish = () => {
-		if (!isAuth) {
+		if (isDev) {
+			onPublish()
+		} else if (!isAuth) {
 			keyInputRef.current?.click()
 		} else {
 			onPublish()
@@ -34,7 +36,7 @@ export function WriteActions() {
 		}
 	}
 
-	const buttonText = isAuth ? (mode === 'edit' ? '更新' : '发布') : '导入密钥'
+	const buttonText = isDev ? '本地保存' : isAuth ? (mode === 'edit' ? '更新' : '发布') : '导入密钥'
 
 	const handleDelete = () => {
 		if (!isAuth) {
