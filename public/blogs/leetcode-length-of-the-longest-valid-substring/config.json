@@ -1,0 +1,13 @@
+{
+  "title": "2781. 最长合法子字符串的长度",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "String"
+  ],
+  "date": "2026-05-28",
+  "summary": "给你一个字符串&nbsp;word&nbsp;和一个字符串数组&nbsp;forbidden&nbsp;。 如果一个字符串不包含&nbsp;forbidden&nbsp;中的任何字符串，我们称这个字符...",
+  "cover": ""
+}

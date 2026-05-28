@@ -1,0 +1,13 @@
+{
+  "title": "2555. 两个线段获得的最多奖品",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Binary Search",
+    "Sliding Window"
+  ],
+  "date": "2026-05-28",
+  "summary": "在 X轴&nbsp;上有一些奖品。给你一个整数数组&nbsp;prizePositions&nbsp;，它按照 非递减&nbsp;顺序排列，其中&nbsp;prizePositions[i]&nbsp...",
+  "cover": ""
+}

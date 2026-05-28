@@ -1,0 +1,13 @@
+{
+  "title": "2875. 无限数组的最短子数组",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "Prefix Sum"
+  ],
+  "date": "2026-05-28",
+  "summary": "给你一个下标从 0 开始的数组 nums 和一个整数 target 。 下标从 0 开始的数组 infinite_nums 是通过无限地将 nums 的元素追加到自己之后生成的。 请你从 infini...",
+  "cover": ""
+}

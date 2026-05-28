@@ -1,0 +1,12 @@
+{
+  "title": "1234. 替换子串得到平衡字符串",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "String",
+    "Sliding Window"
+  ],
+  "date": "2026-05-28",
+  "summary": "有一个只含有&nbsp;'Q', 'W', 'E',&nbsp;'R'&nbsp;四种字符，且长度为 n&nbsp;的字符串。 假如在该字符串中，这四个字符都恰好出现&nbsp;n/4&nbsp;次，...",
+  "cover": ""
+}

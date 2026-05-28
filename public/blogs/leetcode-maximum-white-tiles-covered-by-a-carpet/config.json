@@ -1,0 +1,13 @@
+{
+  "title": "2271. 毯子覆盖的最多白色砖块数",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Greedy",
+    "Array",
+    "Binary Search"
+  ],
+  "date": "2026-05-28",
+  "summary": "给你一个二维整数数组&nbsp;tiles&nbsp;，其中&nbsp;tiles[i] = [li, ri]&nbsp;，表示所有在&nbsp;li &lt;= j &lt;= ri&nbsp;之间...",
+  "cover": ""
+}

@@ -1,0 +1,13 @@
+{
+  "title": "2563. 统计公平数对的数目",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Two Pointers",
+    "Binary Search"
+  ],
+  "date": "2026-05-28",
+  "summary": "给你一个下标从 0 开始、长度为 n 的整数数组&nbsp;nums&nbsp;，和两个整数&nbsp;lower 和&nbsp;upper ，返回 公平数对的数目 。 如果&nbsp;(i, j)&...",
+  "cover": ""
+}

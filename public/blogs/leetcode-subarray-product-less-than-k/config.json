@@ -1,0 +1,13 @@
+{
+  "title": "713. 乘积小于 K 的子数组",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Binary Search",
+    "Prefix Sum"
+  ],
+  "date": "2026-05-28",
+  "summary": "给你一个整数数组 nums 和一个整数 k ，请你返回子数组内所有元素的乘积严格小于 k 的连续子数组的数目。 &nbsp; 示例 1： 输入：nums = [10,5,2,6], k = 100 输...",
+  "cover": ""
+}
