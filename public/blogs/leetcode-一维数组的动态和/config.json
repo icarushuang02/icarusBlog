@@ -1,0 +1,12 @@
+{
+  "title": "1480. 一维数组的动态和",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Prefix Sum"
+  ],
+  "date": "2023-03-24",
+  "summary": "给你一个数组 nums 。数组「动态和」的计算公式为：runningSum[i] = sum(nums[0]&hellip;nums[i]) 。 请返回 nums 的动态和。 &nbsp; 示例 1：...",
+  "cover": ""
+}

@@ -1,0 +1,13 @@
+{
+  "title": "2106. 摘水果",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Binary Search",
+    "Prefix Sum"
+  ],
+  "date": "2025-08-21",
+  "summary": "在一个无限的 x 坐标轴上，有许多水果分布在其中某些位置。给你一个二维整数数组 fruits ，其中 fruits[i] = [positioni, amounti] 表示共有 amounti 个水果...",
+  "cover": ""
+}

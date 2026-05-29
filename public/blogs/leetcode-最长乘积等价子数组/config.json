@@ -1,0 +1,13 @@
+{
+  "title": "3411. 最长乘积等价子数组",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Math",
+    "Enumeration"
+  ],
+  "date": "2025-08-25",
+  "summary": "给你一个由&nbsp;正整数&nbsp;组成的数组 nums。 如果一个数组 arr 满足 prod(arr) == lcm(arr) * gcd(arr)，则称其为&nbsp;乘积等价数组&nbsp...",
+  "cover": ""
+}
