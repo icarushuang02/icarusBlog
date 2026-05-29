@@ -32,7 +32,7 @@ export default function ArticleCard() {
 					</>
 				)}
 
-				<h2 className='text-secondary text-sm'>最新文章</h2>
+				<h2 className='text-secondary text-sm'>我的文章</h2>
 
 				{loading ? (
 					<div className='flex h-[60px] items-center justify-center'>
