@@ -28,7 +28,7 @@ const list = [
 	{
 		icon: ScrollOutlineSVG,
 		iconActive: ScrollFilledSVG,
-		label: '近期文章',
+		label: '我的文章',
 		href: '/blog'
 	},
 	{
