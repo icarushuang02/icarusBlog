@@ -288,12 +288,12 @@ export default function BlogPage() {
 	}, [handleSave, isAuth])
 
 	const handleSyncLeetCode = useCallback(async () => {
-		if (!isAuth) {
-			keyInputRef.current?.click()
-			return
-		}
 		if (!leetcodeCookie) {
 			cookieInputRef.current?.click()
+			return
+		}
+		if (!isAuth) {
+			keyInputRef.current?.click()
 			return
 		}
 		try {
