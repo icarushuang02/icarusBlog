@@ -1,0 +1,13 @@
+{
+  "title": "3281. 范围内整数的最大得分",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Greedy",
+    "Array",
+    "Binary Search"
+  ],
+  "date": "2026-06-01",
+  "summary": "给你一个整数数组 start 和一个整数 d，代表 n 个区间 [start[i], start[i] + d]。 你需要选择 n 个整数，其中第 i 个整数必须属于第 i 个区间。所选整数的 得分 ...",
+  "cover": ""
+}
