@@ -1,0 +1,66 @@
+## 题目描述
+
+给你一个字符串 `word` 和一个字符串数组 `forbidden` 。
+
+如果一个字符串不包含 `forbidden` 中的任何字符串，我们称这个字符串是 **合法** 的。
+
+请你返回字符串 `word` 的一个 **最长合法子字符串** 的长度。
+
+**子字符串** 指的是一个字符串中一段连续的字符，它可以为空。
+
+ 
+
+**示例 1：**
+
+```
+**输入：**word = "cbaaaabc", forbidden = ["aaa","cb"]
+**输出：**4
+**解释：**总共有 11 个合法子字符串："c", "b", "a", "ba", "aa", "bc", "baa", "aab", "ab", "abc" 和 "aabc"。最长合法子字符串的长度为 4 。
+其他子字符串都要么包含 "aaa" ，要么包含 "cb" 。
+```
+
+**示例 2：**
+
+```
+**输入：**word = "leetcode", forbidden = ["de","le","e"]
+**输出：**4
+**解释：**总共有 11 个合法子字符串："l" ，"t" ，"c" ，"o" ，"d" ，"tc" ，"co" ，"od" ，"tco" ，"cod" 和 "tcod" 。最长合法子字符串的长度为 4 。
+所有其他子字符串都至少包含 "de" ，"le" 和 "e" 之一。
+```
+
+ 
+
+**提示：**
+
+	- `1 <= word.length <= 105`
+
+	- `word` 只包含小写英文字母。
+
+	- `1 <= forbidden.length <= 105`
+
+	- `1 <= forbidden[i].length <= 10`
+
+	- `forbidden[i]` 只包含小写英文字母。
+
+## 解法
+
+```java
+class Solution {
+    public int longestValidSubstring(String word, List<String> forbidden) {
+        var fb = new HashSet<String>();
+        fb.addAll(forbidden);
+        int ans = 0, left = 0, n = word.length();
+        for (int right = 0; right < n; right++) {
+            for (int i = right; i >= left && 10> right - i; i--) {
+                if (fb.contains(word.substring(i, right + 1))) {
+                    left = i + 1; // 当子串右端点 >= right 时，合法子串一定不能包含 word[i]
+                    break;
+                }
+            }
+            ans = Math.max(ans, right - left + 1);
+        }
+        return ans;
+    }
+}
+
+```

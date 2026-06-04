@@ -1,0 +1,12 @@
+{
+  "title": "2187. 完成旅途的最少时间",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Binary Search"
+  ],
+  "date": "2026-05-28",
+  "summary": "给你一个数组&nbsp;time&nbsp;，其中&nbsp;time[i]&nbsp;表示第 i&nbsp;辆公交车完成 一趟旅途&nbsp;所需要花费的时间。 每辆公交车可以 连续 完成多趟旅途，...",
+  "cover": ""
+}

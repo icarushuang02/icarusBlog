@@ -1,0 +1,13 @@
+{
+  "title": "410. 分割数组的最大值",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Greedy",
+    "Array",
+    "Binary Search"
+  ],
+  "date": "2026-06-01",
+  "summary": "给定一个非负整数数组 nums 和一个整数&nbsp;k ，你需要将这个数组分成&nbsp;k&nbsp;个非空的连续子数组，使得这&nbsp;k&nbsp;个子数组各自和的最大值 最小。 返回分割后...",
+  "cover": ""
+}
