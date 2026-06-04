@@ -986,5 +986,15 @@
     "cover": "",
     "hidden": false,
     "category": ""
+  },
+  {
+    "slug": "cas-login-integration",
+    "title": "告警系统登录统一平台对接流程",
+    "tags": ["IAM", "CAS", "JWT", "SSO", "Spring Boot", "Vue"],
+    "date": "2026-06-04T18:00:00",
+    "summary": "详细介绍告警系统对接 IAM 统一认证平台的完整流程，包括 CAS 协议、JWT 原理、代码实现和开发过程中遇到的问题",
+    "cover": "",
+    "hidden": false,
+    "category": "技术"
   }
 ]
