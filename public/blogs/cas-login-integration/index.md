@@ -708,7 +708,188 @@ https://iam.example.com/cas/login?service=https%3A%2F%2Fapp.example.com%2Fapi%2F
 1. 先调用 IAM 账号拉取接口同步用户
 2. 确保 `employeeNum` 与本地 `employee_id` 字段一致
 
-## 7. 总结
+## 7. 多环境 CAS 开关控制
+
+### 7.1 方案设计
+
+通过 Vite 环境变量实现各环境独立控制 CAS 登录开关：
+
+| 环境 | 配置文件 | CAS 状态 | IAM 地址 | 应用域名 |
+|------|----------|----------|----------|----------|
+| SI | `.env.si` | 可控 | 测试 IAM | si-app.example.com |
+| ST | `.env.st` | 可控 | 测试 IAM | st-app.example.com |
+| PROD | `.env.production` | 可控 | 生产 IAM | app.example.com |
+
+### 7.2 前端环境变量配置
+
+**`.env.si`（SI 环境）**
+```bash
+# SI 环境
+VITE_CAS_ENABLED=false
+VITE_IAM_URL=https://test-iam.example.com
+VITE_APP_BASE_URL=https://si-app.example.com
+```
+
+**`.env.st`（ST 环境）**
+```bash
+# 测试环境
+VITE_CAS_ENABLED=false
+VITE_IAM_URL=https://test-iam.example.com
+VITE_APP_BASE_URL=https://st-app.example.com
+```
+
+**`.env.production`（生产环境）**
+```bash
+# 生产环境
+VITE_CAS_ENABLED=true
+VITE_IAM_URL=https://iam.example.com
+VITE_APP_BASE_URL=https://app.example.com
+```
+
+### 7.3 前端代码读取环境变量
+
+**`config/cas.js`**
+```javascript
+// 从环境变量读取，生产和测试各自独立
+export const CAS_ENABLED = import.meta.env.VITE_CAS_ENABLED === 'true'
+const IAM_BASE_URL = import.meta.env.VITE_IAM_URL || 'https://test-iam.example.com'
+const APP_BASE_URL = import.meta.env.VITE_APP_BASE_URL || 'https://si-app.example.com'
+
+export const CAS_CONFIG = {
+  CAS_LOGIN_URL: `${IAM_BASE_URL}/cas/login`,
+  CAS_LOGOUT_URL: `${IAM_BASE_URL}/cas/logout`,
+  APP_BASE_URL: APP_BASE_URL,
+  CAS_CALLBACK_PATH: '/oncall/api/auth/casLogin',
+  FRONTEND_CALLBACK_PATH: '/cas-callback'
+}
+```
+
+**路由守卫 `router/index.js`**
+```javascript
+import { getCasLoginUrl, CAS_ENABLED } from '../config/cas'
+
+// 路由守卫
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore()
+  userStore.loadUserFromStorage()
+
+  // CAS 启用时，/login 也跳转到 IAM 登录页
+  if (to.path === '/login' && CAS_ENABLED) {
+    window.location.href = getCasLoginUrl()
+    return
+  }
+
+  if (to.meta.requiresAuth && !userStore.isLoggedIn) {
+    if (CAS_ENABLED) {
+      // CAS 启用：跳转 IAM 登录页
+      window.location.href = getCasLoginUrl()
+    } else {
+      // CAS 关闭：跳转本地登录页
+      next('/login')
+    }
+  } else if (userStore.isLoggedIn && to.meta.requiresAuth) {
+    try {
+      await request.get('/auth/me')
+      next()
+    } catch (error) {
+      userStore.logout()
+      if (CAS_ENABLED) {
+        window.location.href = getCasLoginUrl()
+      } else {
+        next('/login')
+      }
+    }
+  } else {
+    next()
+  }
+})
+```
+
+### 7.4 后端环境配置
+
+后端使用 Spring Boot 的 `application-{profile}.yml` 机制，每个环境独立配置：
+
+**`application.yml`（主配置，默认值）**
+```yaml
+cas:
+  server-url: ${CAS_SERVER_URL:https://test-iam.example.com}
+  service-base-url: ${CAS_SERVICE_BASE_URL:https://si-app.example.com}
+  service-callback-path: /oncall/api/auth/casLogin
+  frontend-callback-path: ${CAS_FRONTEND_CALLBACK:/cas-callback}
+```
+
+**`application-si.yml`（SI 环境）**
+```yaml
+cas:
+  server-url: https://test-iam.example.com
+  service-base-url: https://si-app.example.com
+  client-id: your-test-app-id
+  client-secret: your-test-app-secret
+```
+
+**`application-st.yml`（ST 环境）**
+```yaml
+cas:
+  server-url: https://test-iam.example.com
+  service-base-url: https://st-app.example.com
+  client-id: your-test-app-id
+  client-secret: your-test-app-secret
+```
+
+**`application-prod.yml`（生产环境）**
+```yaml
+cas:
+  server-url: https://iam.example.com
+  service-base-url: https://app.example.com
+  client-id: your-prod-app-id
+  client-secret: your-prod-app-secret
+```
+
+### 7.5 构建命令
+
+**`package.json`**
+```json
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "build:st": "vite build --mode st",
+    "build:si": "vite build --mode si",
+    "build:prod": "vite build --mode production"
+  }
+}
+```
+
+| 环境 | 构建命令 | 使用的配置文件 |
+|------|----------|----------------|
+| 本地开发 | `npm run dev` | `.env.development` |
+| SI 部署 | `npm run build:si` | `.env.si` |
+| ST 部署 | `npm run build:st` | `.env.st` |
+| 生产部署 | `npm run build` | `.env.production` |
+
+### 7.6 开关控制方法
+
+**开启 CAS 登录：**
+修改对应环境的 `.env` 文件：
+```bash
+VITE_CAS_ENABLED=true
+```
+
+**关闭 CAS 登录：**
+```bash
+VITE_CAS_ENABLED=false
+```
+
+修改后重新构建部署即可生效。
+
+### 7.7 注意事项
+
+1. **回调地址一致性**：`VITE_APP_BASE_URL` 必须与 IAM 应用配置的回调地址域名一致
+2. **网络连通性**：后端服务器必须能访问 IAM 服务器（`server-url`），否则会超时
+3. **中文编码**：重定向 URL 中的中文需要 `URLEncoder.encode()` 编码，否则 Tomcat 报错
+4. **CasCallback.vue 打包**：CAS 回调页面需要被打包进构建产物，不能用 `@vite-ignore`
+
+## 8. 总结
 
 通过对接 IAM 统一认证平台，实现了：
 
