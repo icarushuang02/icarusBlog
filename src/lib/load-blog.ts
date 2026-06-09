@@ -20,7 +20,7 @@ export async function loadBlog(slug: string): Promise<LoadedBlog> {
 
 	// Load config.json
 	let config: BlogConfig = {}
-	const configRes = await fetch(`/blogs/${encodeURIComponent(slug)}/config.json`)
+	const configRes = await fetch(`/blogs/${slug}/config.json`)
 	if (configRes.ok) {
 		try {
 			config = await configRes.json()
@@ -30,7 +30,7 @@ export async function loadBlog(slug: string): Promise<LoadedBlog> {
 	}
 
 	// Load index.md
-	const mdRes = await fetch(`/blogs/${encodeURIComponent(slug)}/index.md`)
+	const mdRes = await fetch(`/blogs/${slug}/index.md`)
 	if (!mdRes.ok) {
 		throw new Error('Blog not found')
 	}
