@@ -1,0 +1,13 @@
+{
+  "title": "16. 最接近的三数之和",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Two Pointers",
+    "Sorting"
+  ],
+  "date": "2025-08-01",
+  "summary": "给你一个长度为 n 的整数数组&nbsp;nums&nbsp;和 一个目标值&nbsp;target。请你从 nums 中选出三个在 不同下标位置 的整数，使它们的和与&nbsp;target&nbs...",
+  "cover": ""
+}

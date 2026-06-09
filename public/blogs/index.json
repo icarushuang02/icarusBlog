@@ -1,5 +1,224 @@
 [
   {
+    "slug": "leetcode-无重复字符的最长子串",
+    "title": "3. 无重复字符的最长子串",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Hash Table",
+      "String",
+      "Sliding Window"
+    ],
+    "date": "2023-07-31T00:00",
+    "summary": "给定一个字符串 s ，请你找出其中不含有重复字符的&nbsp;最长 子串&nbsp;的长度。 &nbsp; 示例&nbsp;1: 输入: s = \"abcabcbb\" 输出: 3 解释: 因为无重复字...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-统计和小于目标的下标对数目",
+    "title": "2824. 统计和小于目标的下标对数目",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Two Pointers",
+      "Binary Search"
+    ],
+    "date": "2025-08-01T00:00",
+    "summary": "给你一个下标从 0&nbsp;开始长度为 n&nbsp;的整数数组&nbsp;nums&nbsp;和一个整数&nbsp;target&nbsp;，请你返回满足&nbsp;0 &lt;= i &lt; ...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-最接近的三数之和",
+    "title": "16. 最接近的三数之和",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Two Pointers",
+      "Sorting"
+    ],
+    "date": "2025-08-01T00:00",
+    "summary": "给你一个长度为 n 的整数数组&nbsp;nums&nbsp;和 一个目标值&nbsp;target。请你从 nums 中选出三个在 不同下标位置 的整数，使它们的和与&nbsp;target&nbs...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-得到-k-个黑块的最少涂色次数",
+    "title": "2379. 得到 K 个黑块的最少涂色次数",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "String",
+      "Sliding Window"
+    ],
+    "date": "2025-08-05T00:00",
+    "summary": "给你一个长度为 n&nbsp;下标从 0&nbsp;开始的字符串&nbsp;blocks&nbsp;，blocks[i]&nbsp;要么是&nbsp;'W'&nbsp;要么是&nbsp;'B'&nbs...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-长度为-k-子数组中的最大和",
+    "title": "2461. 长度为 K 子数组中的最大和",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Hash Table",
+      "Sliding Window"
+    ],
+    "date": "2025-08-05T00:00",
+    "summary": "给你一个整数数组 nums 和一个整数 k 。请你从 nums 中满足下述条件的全部子数组中找出最大子数组和： 子数组的长度是 k，且 子数组中的所有元素 各不相同 。 返回满足题面要求的最大子数组和...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-可获得的最大点数",
+    "title": "1423. 可获得的最大点数",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Prefix Sum",
+      "Sliding Window"
+    ],
+    "date": "2025-08-05T00:00",
+    "summary": "几张卡牌 排成一行，每张卡牌都有一个对应的点数。点数由整数数组 cardPoints 给出。 每次行动，你可以从行的开头或者末尾拿一张卡牌，最终你必须正好拿 k 张卡牌。 你的点数就是你拿到手中的所有...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-爱生气的书店老板",
+    "title": "1052. 爱生气的书店老板",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Sliding Window"
+    ],
+    "date": "2025-08-05T00:00",
+    "summary": "有一个书店老板，他的书店开了&nbsp;n&nbsp;分钟。每分钟都有一些顾客进入这家商店。给定一个长度为 n 的整数数组 customers ，其中 customers[i] 是在第 i 分钟开始时...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-找出第-k-小的数对距离",
+    "title": "719. 找出第 K 小的数对距离",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Two Pointers",
+      "Binary Search"
+    ],
+    "date": "2026-06-02T00:00",
+    "summary": "数对 (a,b) 由整数 a 和 b 组成，其数对距离定义为 a 和 b 的绝对差值。 给你一个整数数组 nums 和一个整数 k ，数对由 nums[i] 和 nums[j] 组成且满足 0 &lt...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-好数对的数目",
+    "title": "1512. 好数对的数目",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Hash Table",
+      "Math"
+    ],
+    "date": "2026-06-03T00:00",
+    "summary": "给你一个整数数组 nums 。 如果一组数字 (i,j) 满足 nums[i] == nums[j] 且 i &lt; j ，就可以认为这是一组 好数对 。 返回好数对的数目。 &nbsp; 示例 1...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-与对应负数同时存在的最大正整数",
+    "title": "2441. 与对应负数同时存在的最大正整数",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Hash Table",
+      "Two Pointers"
+    ],
+    "date": "2026-06-03T00:00",
+    "summary": "给你一个 不包含 任何零的整数数组 nums ，找出自身与对应的负数都在数组中存在的最大正整数 k 。 返回正整数 k ，如果不存在这样的整数，返回 -1 。 &nbsp; 示例 1： 输入：nums...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-买卖股票的最佳时机",
+    "title": "121. 买卖股票的最佳时机",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Dynamic Programming"
+    ],
+    "date": "2026-06-04T00:00",
+    "summary": "给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。 你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-增量元素之间的最大差值",
+    "title": "2016. 增量元素之间的最大差值",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array"
+    ],
+    "date": "2026-06-08T00:00",
+    "summary": "给你一个下标从 0 开始的整数数组 nums ，该数组的大小为 n ，请你计算 nums[j] - nums[i] 能求得的 最大差值 ，其中 0 &lt;= i &lt; j &lt; n 且 nu...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-数位和相等数对的最大和",
+    "title": "2342. 数位和相等数对的最大和",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Hash Table",
+      "Sorting"
+    ],
+    "date": "2026-06-08T00:00",
+    "summary": "给你一个下标从 0 开始的数组 nums ，数组中的元素都是 正 整数。请你选出两个下标 i 和 j（i != j），且 nums[i] 的数位和 与&nbsp; nums[j] 的数位和相等。 请你...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
+    "slug": "leetcode-等价多米诺骨牌对的数量",
+    "title": "1128. 等价多米诺骨牌对的数量",
+    "tags": [
+      "LeetCode",
+      "算法",
+      "Array",
+      "Hash Table",
+      "Counting"
+    ],
+    "date": "2026-06-08T00:00",
+    "summary": "给你一组多米诺骨牌 dominoes 。 形式上，dominoes[i] = [a, b] 与 dominoes[j] = [c, d] 等价 当且仅当 (a == c 且 b == d) 或者 (a...",
+    "cover": "",
+    "hidden": false,
+    "category": ""
+  },
+  {
     "slug": "leetcode-只出现一次的数字",
     "title": "136. 只出现一次的数字",
     "tags": [
@@ -990,7 +1209,14 @@
   {
     "slug": "cas-login-integration",
     "title": "告警系统登录统一平台对接流程",
-    "tags": ["IAM", "CAS", "JWT", "SSO", "Spring Boot", "Vue"],
+    "tags": [
+      "IAM",
+      "CAS",
+      "JWT",
+      "SSO",
+      "Spring Boot",
+      "Vue"
+    ],
     "date": "2026-06-04T18:00:00",
     "summary": "详细介绍告警系统对接 IAM 统一认证平台的完整流程，包括 CAS 协议、JWT 原理、代码实现和开发过程中遇到的问题",
     "cover": "",

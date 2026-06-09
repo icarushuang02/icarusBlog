@@ -1,0 +1,12 @@
+{
+  "title": "2379. 得到 K 个黑块的最少涂色次数",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "String",
+    "Sliding Window"
+  ],
+  "date": "2025-08-05",
+  "summary": "给你一个长度为 n&nbsp;下标从 0&nbsp;开始的字符串&nbsp;blocks&nbsp;，blocks[i]&nbsp;要么是&nbsp;'W'&nbsp;要么是&nbsp;'B'&nbs...",
+  "cover": ""
+}

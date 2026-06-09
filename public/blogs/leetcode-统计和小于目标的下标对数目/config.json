@@ -1,0 +1,13 @@
+{
+  "title": "2824. 统计和小于目标的下标对数目",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Two Pointers",
+    "Binary Search"
+  ],
+  "date": "2025-08-01",
+  "summary": "给你一个下标从 0&nbsp;开始长度为 n&nbsp;的整数数组&nbsp;nums&nbsp;和一个整数&nbsp;target&nbsp;，请你返回满足&nbsp;0 &lt;= i &lt; ...",
+  "cover": ""
+}
