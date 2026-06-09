@@ -1,0 +1,8 @@
+{
+  "title": "Spring Boot + Dubbo 微服务集成 IM 即时通讯的完整实践",
+  "tags": ["Java", "Spring Boot", "Dubbo", "即时通讯", "架构设计", "IM", "MyBatis"],
+  "date": "2026-06-05T00:00",
+  "summary": "售后服务场景下集成独立 IM 通讯服务的完整过程，包括架构设计、接口封装、数据组装、Mapper 规范和踩坑经验",
+  "cover": "",
+  "category": "后端开发"
+}

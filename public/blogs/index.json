@@ -1222,5 +1222,25 @@
     "cover": "",
     "hidden": false,
     "category": "技术"
+  },
+  {
+    "slug": "mobile-alert-integration",
+    "title": "如何实现 JWT 权限放行和前端路由守卫跳过认证",
+    "tags": ["JWT", "Vue", "Spring Security", "路由守卫", "权限放行"],
+    "date": "2026-06-04T20:00:00",
+    "summary": "详细介绍如何在 JWT + IAM 认证体系下，实现特定页面绕过认证机制，包括前端路由守卫放行、后端接口隔离、弹窗层级处理等技术细节",
+    "cover": "",
+    "hidden": false,
+    "category": "技术"
+  },
+  {
+    "slug": "smart-companion-im-integration",
+    "title": "Spring Boot + Dubbo 微服务集成 IM 即时通讯的完整实践",
+    "tags": ["Java", "Spring Boot", "Dubbo", "即时通讯", "架构设计", "IM", "MyBatis"],
+    "date": "2026-06-05T00:00",
+    "summary": "售后服务场景下集成独立 IM 通讯服务的完整过程，包括架构设计、接口封装、数据组装、Mapper 规范和踩坑经验",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
   }
 ]
