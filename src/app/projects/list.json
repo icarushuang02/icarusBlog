@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "name": "ECEJ 城市燃气服务平台",
+    "year": 2024,
+    "description": "新奥能源旗下城市燃气服务平台，覆盖员工管理、工单调度、薪资计算等核心业务。17 个微服务的分布式架构，日均服务数十万用户。技术栈：Spring Boot + Dubbo + Nacos + RabbitMQ + Redis + MySQL + SkyWalking。负责核心员工管理服务的设计与开发，包括事件驱动架构、AOP 权限切面、IoT 设备集成等模块。",
+    "image": "/images/projects/ecej-platform.png",
+    "url": "#",
+    "tags": ["Spring Boot", "Dubbo", "Nacos", "RabbitMQ", "Redis", "微服务架构", "SkyWalking"]
+  },
+  {
+    "name": "燃气安全检查系统",
+    "year": 2024,
+    "description": "燃气安全检查核心后端，集成 SAP ERP、Kafka 事件流、智能外呼等外部系统。特殊之处：单服务连接 4 个数据库（业务库、历史库、呼叫中心库、检查库），通过动态数据源 + AOP 注解实现透明切换。使用 Redisson 分布式锁防止任务重复执行，Kafka 处理高频检查数据同步到大数据平台。",
+    "image": "/images/projects/ecej-security.png",
+    "url": "#",
+    "tags": ["多数据源", "Kafka", "Redisson", "SAP JCo", "分布式锁", "事件驱动"]
+  },
+  {
+    "name": "燃气支付网关与消息中间件",
+    "year": 2025,
+    "description": "对接盛付通、拉卡拉等第三方支付渠道的开放 API 网关。支付回调通过签名验签 + 乐观锁保证幂等性，结果通过 RabbitMQ 异步通知业务服务。同时负责平台消息中间件的设计：Guava EventBus 处理本地事件 + RabbitMQ 处理跨服务通信的双层架构，以及死信队列监控和消息积压处理策略。",
+    "image": "/images/projects/ecej-payment.png",
+    "url": "#",
+    "tags": ["支付网关", "RabbitMQ", "Guava EventBus", "幂等性", "签名验签", "策略模式"]
+  },
+  {
+    "name": "分片数据库大规模迁移",
+    "year": 2025,
+    "description": "从分片遗留数据库迁移数十亿条记录到新统一数据库。自定义任务执行框架（模板方法 + 策略模式），支持 Groovy 脚本动态映射不同城市的表结构差异。Quartz 调度 + 断点续传 + 抽样校验保障数据一致性。迁移过程中业务不停机，通过增量同步 + 最终切换方案实现平滑过渡。",
+    "image": "/images/projects/ecej-migration.png",
+    "url": "#",
+    "tags": ["数据迁移", "Quartz", "Groovy", "分片数据库", "数据一致性", "任务调度"]
+  }
+]
