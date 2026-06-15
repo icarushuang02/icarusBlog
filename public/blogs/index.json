@@ -1242,5 +1242,15 @@
     "cover": "",
     "hidden": false,
     "category": "后端开发"
+  },
+  {
+    "slug": "mysql-primary-key-engine",
+    "title": "告警系统主键设计踩坑：为什么不能直接暴露自增 ID",
+    "tags": ["MySQL", "主键设计", "B+树", "InnoDB", "存储引擎", "数据库"],
+    "date": "2026-06-09T00:00",
+    "summary": "设计告警系统时被架构师 review 了主键方案，从 B+ 树原理到业务编码生成策略的完整调研",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
   }
 ]
