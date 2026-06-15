@@ -2,7 +2,6 @@ import { NextConfig } from 'next'
 import { codeInspectorPlugin } from 'code-inspector-plugin'
 
 const nextConfig: NextConfig = {
-	output: 'export',
 	devIndicators: false,
 	reactStrictMode: false,
 	reactCompiler: true,
