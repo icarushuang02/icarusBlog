@@ -1,0 +1,13 @@
+{
+  "title": "2001. 可互换矩形的组数",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "Math"
+  ],
+  "date": "2026-06-11",
+  "summary": "用一个下标从 0 开始的二维整数数组&nbsp;rectangles 来表示 n 个矩形，其中 rectangles[i] = [widthi, heighti] 表示第 i 个矩形的宽度和高度。 如...",
+  "cover": ""
+}

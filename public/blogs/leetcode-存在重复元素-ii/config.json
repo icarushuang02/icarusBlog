@@ -1,0 +1,13 @@
+{
+  "title": "219. 存在重复元素 II",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "Sliding Window"
+  ],
+  "date": "2026-06-10",
+  "summary": "给你一个整数数组&nbsp;nums 和一个整数&nbsp;k ，判断数组中是否存在两个 不同的索引&nbsp;i&nbsp;和&nbsp;j ，满足 nums[i] == nums[j] 且 abs...",
+  "cover": ""
+}
