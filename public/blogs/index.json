@@ -1265,10 +1265,10 @@
   },
   {
     "slug": "multi-agent-cluster-patterns",
-    "title": "多 Agent 集群的四种协作模式：从路由到群体的演进之路",
-    "tags": ["AI", "Agent", "多Agent", "LLM", "架构设计", "协作模式"],
+    "title": "多 Agent 集群架构全解：什么时候该拆 + 四种协作模式",
+    "tags": ["AI", "Agent", "多Agent", "LLM", "架构设计", "协作模式", "决策框架"],
     "date": "2026-06-09T00:00",
-    "summary": "单体 Agent 不够用？拆解多 Agent 集群的四种核心协作模式：路由、委托、辩论、群体",
+    "summary": "从五个拆分信号到四种协作模式，多 Agent 集群的完整决策框架与实战指南",
     "cover": "",
     "hidden": false,
     "category": "AI"
