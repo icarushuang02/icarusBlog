@@ -1282,5 +1282,15 @@
     "cover": "",
     "hidden": false,
     "category": "工具"
+  },
+  {
+    "slug": "loop-engineering",
+    "title": "从 Prompt 到 Context 到 Harness 到 Loop：AI 工程的四次进化",
+    "tags": ["AI", "Prompt Engineering", "Context Engineering", "Loop Engineering", "Agent", "Harness"],
+    "date": "2026-06-10T00:00",
+    "summary": "从写提示词到设计替你写提示词的系统，AI 工程的四个阶段瓶颈迁移全解析",
+    "cover": "",
+    "hidden": false,
+    "category": "AI"
   }
 ]
