@@ -1262,5 +1262,25 @@
     "cover": "",
     "hidden": false,
     "category": "AI"
+  },
+  {
+    "slug": "multi-agent-cluster-patterns",
+    "title": "多 Agent 集群的四种协作模式：从路由到群体的演进之路",
+    "tags": ["AI", "Agent", "多Agent", "LLM", "架构设计", "协作模式"],
+    "date": "2026-06-09T00:00",
+    "summary": "单体 Agent 不够用？拆解多 Agent 集群的四种核心协作模式：路由、委托、辩论、群体",
+    "cover": "",
+    "hidden": false,
+    "category": "AI"
+  },
+  {
+    "slug": "wechat-article-fetcher",
+    "title": "微信公众号文章抓取：用 Node.js 提取 HTML 正文的实战",
+    "tags": ["Node.js", "爬虫", "微信", "公众号", "HTML解析"],
+    "date": "2026-06-09T00:00",
+    "summary": "微信公众号文章是服务端渲染的 HTML，通过正则提取 js_content div 内容，实现纯文本抓取",
+    "cover": "",
+    "hidden": false,
+    "category": "工具"
   }
 ]
