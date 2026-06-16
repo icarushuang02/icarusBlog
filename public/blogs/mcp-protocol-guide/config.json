@@ -1,0 +1,8 @@
+{
+  "title": "面试官：说说什么是 MCP？别再和 Function Calling 搞混了",
+  "tags": ["MCP", "AI", "Agent", "Function Calling", "协议", "面试"],
+  "date": "2026-06-10T00:00",
+  "summary": "MCP 是协议不是框架，解决的是工具接入碎片化的问题。Client-Server 架构、三类核心能力、JSON-RPC 通信机制一次讲清",
+  "cover": "",
+  "category": "精选文章"
+}
