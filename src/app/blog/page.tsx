@@ -389,7 +389,7 @@ export default function BlogPage() {
 					<motion.div
 						initial={{ opacity: 0, scale: 0.6 }}
 						animate={{ opacity: 1, scale: 1 }}
-						className='card btn-rounded relative mx-auto flex items-center gap-1 p-1 max-sm:hidden'>
+						className='btn-rounded relative mx-auto flex items-center gap-1 rounded-[40px] border bg-card p-1 shadow-sm backdrop-blur max-sm:hidden'>
 						{[
 							{ value: 'day', label: '日' },
 							{ value: 'week', label: '周' },
