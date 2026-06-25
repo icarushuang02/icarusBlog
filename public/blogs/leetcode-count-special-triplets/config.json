@@ -1,0 +1,13 @@
+{
+  "title": "3583. 统计特殊三元组",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "Counting"
+  ],
+  "date": "2026-06-23",
+  "summary": "给你一个整数数组 nums。 特殊三元组 定义为满足以下条件的下标三元组 (i, j, k)： 0 &lt;= i &lt; j &lt; k &lt; n，其中 n = nums.length nu...",
+  "cover": ""
+}

@@ -1,0 +1,12 @@
+{
+  "title": "2730. 找到最长的半重复子字符串",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "String",
+    "Sliding Window"
+  ],
+  "date": "2025-08-19",
+  "summary": "给你一个下标从 0&nbsp;开始的字符串&nbsp;s&nbsp;，这个字符串只包含&nbsp;0&nbsp;到&nbsp;9&nbsp;的数字字符。 如果一个字符串&nbsp;t&nbsp;中至多...",
+  "cover": ""
+}

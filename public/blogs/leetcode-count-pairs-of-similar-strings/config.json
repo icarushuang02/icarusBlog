@@ -1,0 +1,13 @@
+{
+  "title": "2506. 统计相似字符串对的数目",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Bit Manipulation",
+    "Array",
+    "Hash Table"
+  ],
+  "date": "2026-06-21",
+  "summary": "给你一个下标从 0 开始的字符串数组 words 。 如果两个字符串由相同的字符组成，则认为这两个字符串 相似 。 例如，\"abca\" 和 \"cba\" 相似，因为它们都由字符 'a'、'b'、'c' ...",
+  "cover": ""
+}

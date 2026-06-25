@@ -1,0 +1,13 @@
+{
+  "title": "1297. 子串的最大出现次数",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Hash Table",
+    "String",
+    "Sliding Window"
+  ],
+  "date": "2025-08-08",
+  "summary": "给你一个字符串&nbsp;s ，请你返回满足以下条件且出现次数最大的&nbsp;任意&nbsp;子串的出现次数： 子串中不同字母的数目必须小于等于 maxLetters 。 子串的长度必须大于等于&n...",
+  "cover": ""
+}

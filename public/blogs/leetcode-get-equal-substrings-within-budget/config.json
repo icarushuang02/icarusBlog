@@ -1,0 +1,13 @@
+{
+  "title": "1208. 尽可能使字符串相等",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "String",
+    "Binary Search",
+    "Prefix Sum"
+  ],
+  "date": "2025-08-18",
+  "summary": "给你两个长度相同的字符串，s 和 t。 将 s&nbsp;中的第&nbsp;i&nbsp;个字符变到&nbsp;t&nbsp;中的第 i 个字符需要&nbsp;|s[i] - t[i]|&nbsp;的...",
+  "cover": ""
+}

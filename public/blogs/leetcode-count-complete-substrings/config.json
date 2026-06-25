@@ -1,0 +1,13 @@
+{
+  "title": "2953. 统计完全子字符串",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Hash Table",
+    "String",
+    "Sliding Window"
+  ],
+  "date": "2025-08-15",
+  "summary": "给你一个字符串&nbsp;word&nbsp;和一个整数 k&nbsp;。 如果&nbsp;word&nbsp;的一个子字符串 s&nbsp;满足以下条件，我们称它是 完全字符串： s&nbsp;中每...",
+  "cover": ""
+}

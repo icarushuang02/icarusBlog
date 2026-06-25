@@ -1,0 +1,13 @@
+{
+  "title": "2653. 滑动子数组的美丽值",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "Sliding Window"
+  ],
+  "date": "2025-08-08",
+  "summary": "给你一个长度为 n&nbsp;的整数数组&nbsp;nums&nbsp;，请你求出每个长度为&nbsp;k&nbsp;的子数组的 美丽值&nbsp;。 一个子数组的 美丽值&nbsp;定义为：如果子数...",
+  "cover": ""
+}

@@ -1,0 +1,13 @@
+{
+  "title": "1128. 等价多米诺骨牌对的数量",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "Counting"
+  ],
+  "date": "2026-06-08",
+  "summary": "给你一组多米诺骨牌 dominoes 。 形式上，dominoes[i] = [a, b] 与 dominoes[j] = [c, d] 等价 当且仅当 (a == c 且 b == d) 或者 (a...",
+  "cover": ""
+}

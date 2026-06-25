@@ -1,0 +1,13 @@
+{
+  "title": "3634. 使数组平衡的最少移除数目",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Binary Search",
+    "Sorting"
+  ],
+  "date": "2025-08-18",
+  "summary": "给你一个整数数组 nums 和一个整数 k。 如果一个数组的&nbsp;最大&nbsp;元素的值&nbsp;至多&nbsp;是其&nbsp;最小&nbsp;元素的 k 倍，则该数组被称为是&nbsp;...",
+  "cover": ""
+}

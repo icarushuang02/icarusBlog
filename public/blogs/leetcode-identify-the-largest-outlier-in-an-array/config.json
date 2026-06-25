@@ -1,0 +1,13 @@
+{
+  "title": "3371. 识别数组中的最大异常值",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "Counting"
+  ],
+  "date": "2026-06-18",
+  "summary": "给你一个整数数组 nums。该数组包含 n 个元素，其中&nbsp;恰好&nbsp;有 n - 2 个元素是&nbsp;特殊数字&nbsp;。剩下的&nbsp;两个&nbsp;元素中，一个是所有&nb...",
+  "cover": ""
+}

@@ -1,0 +1,13 @@
+{
+  "title": "2958. 最多 K 个重复元素的最长子数组",
+  "tags": [
+    "LeetCode",
+    "算法",
+    "Array",
+    "Hash Table",
+    "Sliding Window"
+  ],
+  "date": "2025-08-18",
+  "summary": "给你一个整数数组&nbsp;nums&nbsp;和一个整数&nbsp;k&nbsp;。 一个元素 x&nbsp;在数组中的 频率&nbsp;指的是它在数组中的出现次数。 如果一个数组中所有元素的频率都...",
+  "cover": ""
+}
