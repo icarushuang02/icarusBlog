@@ -1567,5 +1567,125 @@
     "cover": "",
     "hidden": false,
     "category": "精选文章"
+  },
+  {
+    "slug": "mat-workorder-cache-leak",
+    "title": "记一次工单缓存泄漏导致的 OOM",
+    "tags": ["Java", "MAT", "OOM", "内存泄漏", "Caffeine", "排查"],
+    "date": "2025-04-15T00:00",
+    "summary": "smemp-service 运行 3~4 天后频繁 Full GC，用 MAT 定位到 ConcurrentHashMap 只增不删的缓存泄漏",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "mat-dispatch-connection-leak",
+    "title": "派工模块数据库连接泄漏排查",
+    "tags": ["Java", "MAT", "HikariCP", "ThreadLocal", "连接泄漏", "排查"],
+    "date": "2025-08-22T00:00",
+    "summary": "高峰期连接池打满，用 OQL 查出 237 个连接对象，Path to GC Roots 追到 ThreadLocal 未清理",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "mat-export-oom-poi",
+    "title": "工单导出 OOM——POI 大对象内存分析",
+    "tags": ["Java", "MAT", "POI", "OOM", "SXSSFWorkbook", "排查"],
+    "date": "2025-11-08T00:00",
+    "summary": "运营导出 50 万条工单触发 OOM，XSSFWorkbook 全量加载 1.2GB，改 SXSSFWorkbook 流式写入降到 80MB",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "mat-mq-consumer-deadlock",
+    "title": "RabbitMQ 消费者卡死——用 MAT 看线程状态",
+    "tags": ["Java", "MAT", "RabbitMQ", "线程分析", "反压", "排查"],
+    "date": "2026-01-17T00:00",
+    "summary": "MQ 消费者不消费队列积压 10 万条，Thread Overview 发现 50 个线程全卡在 LinkedBlockingQueue.take()",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "mat-threadlocal-datascope-leak",
+    "title": "ThreadLocal 慢泄漏——数据权限上下文排查",
+    "tags": ["Java", "MAT", "ThreadLocal", "Compare Dumps", "慢泄漏", "排查"],
+    "date": "2026-03-20T00:00",
+    "summary": "内存缓慢增长无 OOM，用 Compare Heap Dumps 对比发现 DataScope 增长 43 倍，ThreadLocal 未 remove",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "mat-memory-analysis-guide",
+    "title": "MAT 内存分析工具——smemp-service 排障总结",
+    "tags": ["Java", "MAT", "OOM", "内存分析", "排查流程", "总结"],
+    "date": "2026-03-20T00:00",
+    "summary": "过去一年 smemp-service 五次内存排障总结：排查流程、核心功能、常见场景速查",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "hikaricp-leak-detection",
+    "title": "HikariCP 泄漏检测实战——从日志告警到 MAT 定位",
+    "tags": ["Java", "HikariCP", "连接池", "泄漏检测", "参数调优"],
+    "date": "2025-06-10T00:00",
+    "summary": "开启 HikariCP 泄漏检测后发现连接超时告警，用 MAT OQL 追踪到 ThreadLocal 持有连接未归还",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "thread-pool-tuning",
+    "title": "线程池调优——从默认配置到生产级参数",
+    "tags": ["Java", "线程池", "ThreadPoolTaskExecutor", "拒绝策略", "调优"],
+    "date": "2025-09-15T00:00",
+    "summary": "高峰期工单通知延迟，排查发现是 Executors 默认无界队列导致，改为自定义线程池+CallerRunsPolicy",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "slow-query-optimization",
+    "title": "工单列表慢查询优化——从 800ms 到 20ms",
+    "tags": ["MySQL", "慢查询", "EXPLAIN", "联合索引", "优化"],
+    "date": "2025-10-20T00:00",
+    "summary": "工单列表 P99 延迟 800ms，EXPLAIN 发现 filesort，加联合索引 (city_id, status, create_time) 降到 20ms",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "rabbitmq-consumer-stuck",
+    "title": "RabbitMQ 消费者卡死——有界队列反压问题",
+    "tags": ["Java", "RabbitMQ", "消费者", "反压", "并发消费"],
+    "date": "2026-01-17T00:00",
+    "summary": "自定义内部有界队列+下游超时导致反压，改为 RabbitMQ 原生 concurrency 并发消费解决",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "cache-strategy-design",
+    "title": "多级缓存策略设计——Caffeine + Redis 实战",
+    "tags": ["Java", "缓存", "Caffeine", "Redis", "多级缓存", "一致性"],
+    "date": "2025-12-05T00:00",
+    "summary": "工单详情接口 QPS 200+，设计 Caffeine L1 + Redis L2 多级缓存，命中率 95%，DB 压力降 10 倍",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
+  },
+  {
+    "slug": "g1gc-tuning",
+    "title": "G1 GC 调优——从 Full GC 频繁到一天一次",
+    "tags": ["Java", "JVM", "G1GC", "GC调优", "性能优化"],
+    "date": "2026-02-10T00:00",
+    "summary": "Full GC 从一天一次变四次，调整 InitiatingHeapOccupancyPercent 和 G1HeapRegionSize 后恢复",
+    "cover": "",
+    "hidden": false,
+    "category": "后端开发"
   }
 ]
