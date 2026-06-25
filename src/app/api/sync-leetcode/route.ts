@@ -1,11 +1,16 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { toBase64Utf8, getRef, createTree, createCommit, updateRef, createBlob, readTextFileFromRepo, type TreeItem } from '@/lib/server-github'
-import { htmlToMarkdown, leetcodeSlug } from '@/lib/leetcode-utils'
+import { htmlToMarkdown } from '@/lib/leetcode-utils'
 import { GITHUB_CONFIG } from '@/consts'
 
 const LEETCODE_API = 'https://leetcode.cn/graphql/'
 const DEFAULT_TAGS = ['LeetCode', '算法']
 const MAX_PAGES = 50
+
+// 用 titleSlug 生成 slug，和 sync.js 保持一致
+function leetcodeSlugFromTitleSlug(titleSlug: string): string {
+	return `leetcode-${titleSlug}`
+}
 
 function getLeetcodeHeaders(cookie: string) {
 	const csrf = cookie.match(/csrftoken=([^;]+)/)?.[1] || ''
@@ -81,12 +86,42 @@ export async function POST(request: NextRequest) {
 		} catch {}
 		const existingSlugs = new Set(existingIndex.map((e: any) => e.slug))
 
-		// 4. 过滤出新题目
-		const toFetch: { title: string; sub: any; slug: string }[] = []
-		for (const [title, sub] of problemMap) {
-			const slug = leetcodeSlug(title)
+		// 4. 先获取详情拿 titleSlug，再过滤已存在的
+		const allSubs = Array.from(problemMap.values())
+		const toFetch: { title: string; sub: any }[] = []
+
+		// 先批量获取详情（5个一组）
+		const detailResults: any[] = []
+		let di = 0
+		async function detailWorker() {
+			while (di < allSubs.length) {
+				const idx = di++
+				try {
+					const detail = await lcGql(cookie, `
+						query ($id: ID!) {
+							submissionDetail(submissionId: $id) {
+								code statusDisplay lang
+								question {
+									questionFrontendId titleSlug translatedTitle translatedContent
+									difficulty topicTags { name }
+								}
+							}
+						}
+					`, { id: allSubs[idx].id })
+					detailResults[idx] = { sub: allSubs[idx], detail: detail.submissionDetail }
+				} catch (err: any) {
+					detailResults[idx] = { sub: allSubs[idx], error: err.message }
+				}
+			}
+		}
+		await Promise.all(Array.from({ length: Math.min(5, allSubs.length) }, () => detailWorker()))
+
+		// 用 titleSlug 过滤已存在的
+		for (const r of detailResults) {
+			if (r.error) continue
+			const slug = leetcodeSlugFromTitleSlug(r.detail.question.titleSlug)
 			if (!existingSlugs.has(slug)) {
-				toFetch.push({ title, sub, slug })
+				toFetch.push({ title: r.sub.title, sub: r.sub })
 			}
 		}
 
@@ -94,50 +129,26 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json({ ok: true, synced: 0, message: '没有新题目需要同步' })
 		}
 
-		// 5. 并发获取详情并生成文件
+		// 5. 用已获取的详情生成文件
 		const synced: { slug: string; title: string; tags: string[]; date: string; summary: string }[] = []
-
-		const fetchDetail = async (item: { title: string; sub: any; slug: string }) => {
-			const detail = await lcGql(cookie, `
-				query ($id: ID!) {
-					submissionDetail(submissionId: $id) {
-						code statusDisplay lang
-						question {
-							questionFrontendId titleSlug translatedTitle translatedContent
-							difficulty topicTags { name }
-						}
-					}
-				}
-			`, { id: item.sub.id })
-			return { ...item, detail: detail.submissionDetail }
-		}
-
-		// 并发获取（5个一组）
-		const results: any[] = []
-		let i = 0
-		async function worker() {
-			while (i < toFetch.length) {
-				const idx = i++
-				try {
-					results[idx] = await fetchDetail(toFetch[idx])
-				} catch (err: any) {
-					results[idx] = { error: err.message, title: toFetch[idx].title }
-				}
-			}
-		}
-		await Promise.all(Array.from({ length: Math.min(5, toFetch.length) }, () => worker()))
 
 		// 6. 构建 tree items
 		const treeItems: TreeItem[] = []
 
-		for (const r of results) {
+		// 从 detailResults 中找出需要同步的（已过滤已存在的）
+		const toSyncSet = new Set(toFetch.map(t => t.sub.id))
+
+		for (const r of detailResults) {
 			if (r.error) continue
-			const { slug, sub, detail } = r
+			if (!toSyncSet.has(r.sub.id)) continue
+
+			const detail = r.detail
+			const slug = leetcodeSlugFromTitleSlug(detail.question.titleSlug)
 			const q = detail.question
 			const id = q.questionFrontendId
 			const title = q.translatedTitle || q.title
 			const tags = [...DEFAULT_TAGS, ...q.topicTags.map((t: any) => t.name).slice(0, 3)]
-			const date = sub.timestamp ? new Date(sub.timestamp * 1000).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)
+			const date = r.sub.timestamp ? new Date(r.sub.timestamp * 1000).toISOString().slice(0, 10) : new Date().toISOString().slice(0, 10)
 			const content = q.translatedContent || ''
 			const summary = content.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').slice(0, 100) + '...'
 			const basePath = `public/blogs/${slug}`
@@ -160,9 +171,46 @@ export async function POST(request: NextRequest) {
 			return NextResponse.json({ ok: true, synced: 0, message: '获取题目详情失败' })
 		}
 
-		// 7. 更新 index.json
+		// 7. 更新 index.json，按算法分类
+		const categoryMap: Record<string, string> = {
+			'Array': '数组',
+			'Hash Table': '哈希表',
+			'Two Pointers': '双指针',
+			'Sliding Window': '滑动窗口',
+			'Binary Search': '二分查找',
+			'String': '字符串',
+			'Linked List': '链表',
+			'Stack': '栈',
+			'Queue': '队列',
+			'Heap': '堆',
+			'Tree': '树',
+			'Graph': '图',
+			'Dynamic Programming': '动态规划',
+			'Greedy': '贪心',
+			'Backtracking': '回溯',
+			'Divide and Conquer': '分治',
+			'Sorting': '排序',
+			'Bit Manipulation': '位运算',
+			'Math': '数学',
+			'Recursion': '递归',
+			'Design': '设计',
+			'Trie': '字典树',
+			'Union Find': '并查集',
+			'Prefix Sum': '前缀和',
+			'Counting': '计数',
+			'Matrix': '矩阵',
+			'Simulation': '模拟',
+			'Enumeration': '枚举',
+			'Geometry': '几何',
+			'Monotonic Stack': '单调栈',
+		}
+
 		for (const item of synced) {
-			const entry = { slug: item.slug, title: item.title, tags: item.tags, date: `${item.date}T00:00`, summary: item.summary, cover: '', hidden: false, category: '' }
+			// 根据 tags 确定分类：取第一个非 LeetCode/算法的 tag 对应的中文分类
+			const algorithmTag = item.tags.find(t => t !== 'LeetCode' && t !== '算法')
+			const category = algorithmTag ? (categoryMap[algorithmTag] || '其他') : '其他'
+
+			const entry = { slug: item.slug, title: item.title, tags: item.tags, date: `${item.date}T00:00`, summary: item.summary, cover: '', hidden: false, category }
 			const idx = existingIndex.findIndex((e: any) => e.slug === item.slug)
 			if (idx >= 0) existingIndex[idx] = entry
 			else existingIndex.unshift(entry)
@@ -176,7 +224,7 @@ export async function POST(request: NextRequest) {
 		const commitData = await createCommit(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `feat: 同步 LeetCode 题解 (${synced.length} 道)`, treeData.sha, [refData.sha])
 		await updateRef(token, GITHUB_CONFIG.OWNER, GITHUB_CONFIG.REPO, `heads/${GITHUB_CONFIG.BRANCH}`, commitData.sha)
 
-		const failures = results.filter((r: any) => r.error).map((r: any) => ({ title: r.title, error: r.error }))
+		const failures = detailResults.filter((r: any) => r.error).map((r: any) => ({ title: r.sub?.title, error: r.error }))
 
 		return NextResponse.json({
 			ok: true,
