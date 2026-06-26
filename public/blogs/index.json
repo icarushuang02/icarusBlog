@@ -1,5 +1,22 @@
 ﻿[
     {
+        "title":  "Browser Harness 学习：~1k 行代码连接 LLM 和真实浏览器",
+        "hidden":  false,
+        "tags":  [
+                     "AI",
+                     "Agent",
+                     "Browser Harness",
+                     "CDP",
+                     "自动化",
+                     "Python"
+                 ],
+        "category":  "精选文章",
+        "cover":  "",
+        "summary":  "从 Java 工程师视角拆解 Browser Use 团队的 Browser Harness：架构设计、核心代码、CDP vs WebDriver、Agent 自我进化机制",
+        "slug":  "browser-harness-study",
+        "date":  "2026-06-25T00:00"
+    },
+    {
         "slug":  "leetcode-grumpy-bookstore-owner",
         "title":  "1052. 爱生气的书店老板",
         "tags":  [
