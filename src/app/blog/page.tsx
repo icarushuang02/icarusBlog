@@ -412,6 +412,29 @@ export default function BlogPage() {
 					</motion.div>
 				)}
 
+				{displayMode === 'category' && groupKeys.length > 1 && (
+					<motion.div
+						initial={{ opacity: 0, y: -10 }}
+						animate={{ opacity: 1, y: 0 }}
+						className='sticky top-2 z-10 mx-auto w-full max-w-[840px]'>
+						<div className='card flex flex-wrap items-center gap-2 rounded-xl px-4 py-3 backdrop-blur'>
+							<span className='text-secondary mr-1 text-xs'>导航：</span>
+							{groupKeys.map(key => (
+								<button
+									key={key}
+									onClick={() => {
+										const el = document.getElementById(`category-${key}`)
+										if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+									}}
+									className='rounded-lg border border-transparent bg-white/60 px-3 py-1 text-xs transition-all hover:border-brand/40 hover:bg-white/80 hover:text-brand'>
+									{getGroupLabel(key)}
+									<span className='text-secondary ml-1'>({groupedItems[key]?.items.length})</span>
+								</button>
+							))}
+						</div>
+					</motion.div>
+				)}
+
 				{groupKeys.map((groupKey, index) => {
 					const group = groupedItems[groupKey]
 					if (!group) return null
@@ -420,10 +443,11 @@ export default function BlogPage() {
 						<motion.div
 							onMouseLeave={cancelCoverPreview}
 							key={groupKey}
+							id={displayMode === 'category' ? `category-${groupKey}` : undefined}
 							initial={{ opacity: 0, scale: 0.95 }}
 							whileInView={{ opacity: 1, scale: 1 }}
 							transition={{ delay: INIT_DELAY / 2 }}
-							className='card relative w-full max-w-[840px] space-y-6'>
+							className='card relative w-full max-w-[840px] space-y-6 scroll-mt-20'>
 							<div className='mb-3 flex items-center justify-between gap-3 text-base'>
 								<div className='flex items-center gap-3'>
 									<div className='font-medium'>{getGroupLabel(groupKey)}</div>
